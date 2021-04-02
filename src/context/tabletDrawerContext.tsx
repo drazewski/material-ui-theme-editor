@@ -1,8 +1,8 @@
 import React, { useState, createContext } from 'react';
 
 interface ContextProps {
-  isNavBarOpen: boolean;
-  toggleNavBar: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  isDrawerOpen: boolean;
+  toggleDrawer: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 export const TabletDrawerContext = createContext({} as ContextProps);
@@ -12,9 +12,9 @@ type Props = {
 };
 
 const TabletDrawerProvider = ({children}: Props): JSX.Element => {
-  const [ isNavBarOpen, setNavBarOpen ] = useState(false);
+  const [ isDrawerOpen, setDrawerOpen ] = useState(false);
 
-  const toggleNavBar = (
+  const toggleDrawer = (
     event: React.KeyboardEvent | React.MouseEvent,
   ): void => {
     if (
@@ -26,11 +26,11 @@ const TabletDrawerProvider = ({children}: Props): JSX.Element => {
       return;
     }
 
-    setNavBarOpen(!isNavBarOpen);
+    setDrawerOpen(!isDrawerOpen);
   }
 
   return (
-    <TabletDrawerContext.Provider value={{ isNavBarOpen, toggleNavBar }} >
+    <TabletDrawerContext.Provider value={{ isDrawerOpen, toggleDrawer }} >
       {children}
     </TabletDrawerContext.Provider>
   );

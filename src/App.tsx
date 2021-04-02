@@ -4,6 +4,7 @@ import { Box, Container, createStyles, CssBaseline, makeStyles, Theme } from '@m
 import ThemeProvider from './context/themeContext';
 import PageNotFound from './components/pages/PageNotFound';
 import regularRoutes from './routing/regularRoutes';
+import TabletDrawerProvider from './context/tabletDrawerContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,15 +19,17 @@ const App: React.FC = () => {
 
   return (
     <Container className={classes.root} disableGutters maxWidth={false}>
-      <Box>
-        <Router>
-          <Switch>
-            {regularRoutes}
-            {/* <PremiumDataContainer>{PremiumRoutes}</PremiumDataContainer> */}
-            <Route component={PageNotFound} />
-          </Switch>
-        </Router>
-      </Box>
+      <TabletDrawerProvider>
+        <Box>
+          <Router>
+            <Switch>
+              {regularRoutes}
+              {/* <PremiumDataContainer>{PremiumRoutes}</PremiumDataContainer> */}
+              <Route component={PageNotFound} />
+            </Switch>
+          </Router>
+        </Box>
+      </TabletDrawerProvider>
     </Container>
   );
 }
