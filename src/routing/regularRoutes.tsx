@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Route } from 'react-router';
-import MainLoader from '../components/atoms/MainLoader';
+import MainLoader from '../components/elements/MainLoader';
 import { RegularRoutesConfig } from './routeConfigurations';
 
 const AppPage = lazy(() => import('../components/pages/AppPage'));

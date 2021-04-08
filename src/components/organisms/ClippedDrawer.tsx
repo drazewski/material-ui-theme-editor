@@ -1,6 +1,5 @@
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
 
 const drawerWidth = 440;
 
@@ -11,17 +10,20 @@ const useStyles = makeStyles((theme: Theme) =>
       flexShrink: 0,
     },
     drawerPaper: {
+      maxHeight: `calc(100vh - 2 * ${theme.mixins.toolbar.minHeight}px - 1px)`,
       width: drawerWidth,
-      marginTop: `calc(2 * ${theme.mixins.toolbar.minHeight}px + 1px)`
+      marginTop: `calc(2 * ${theme.mixins.toolbar.minHeight}px + 1px)`,
+      padding: theme.spacing(3)
     },
   }),
 );
 
 interface ClippedDrawerProps {
   isOpen: boolean;
+  children: JSX.Element;
 }
 
-export default function ClippedDrawer({ isOpen }: ClippedDrawerProps) {
+export default function ClippedDrawer({ isOpen, children }: ClippedDrawerProps) {
   const classes = useStyles();
 
   return (
@@ -33,7 +35,7 @@ export default function ClippedDrawer({ isOpen }: ClippedDrawerProps) {
       }}
       open={isOpen}
     >   
-      <Divider />
+      {children}
     </Drawer>
   );
 }

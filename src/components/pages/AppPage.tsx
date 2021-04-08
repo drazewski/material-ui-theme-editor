@@ -4,6 +4,7 @@ import Header from '../organisms/Header';
 import AppToolbar from '../organisms/AppToolbar';
 import ClippedDrawer from '../organisms/ClippedDrawer';
 import { TabletDrawerContext } from '../../context/tabletDrawerContext';
+import ThemeImporter from '../organisms/ThemeImporter';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +26,9 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <Header />
       <AppToolbar toggleDrawer={handleDrawer} />
-      <ClippedDrawer isOpen={isDrawerOpen}/>
+      <ClippedDrawer isOpen={isDrawerOpen}>
+        <ThemeImporter toggleDrawer={handleDrawer}/>
+      </ClippedDrawer>
     </div>
   );
 }
