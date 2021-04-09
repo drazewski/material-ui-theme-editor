@@ -10,9 +10,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       textTransform: 'uppercase',
-      fontWeight: 600,
       padding: 10,
-
+      fontSize: 'smaller'
     },
     toolbar: {
       margin: '0 0px 0 -10px',
@@ -23,17 +22,21 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface AppToolbarProps {
   toggleDrawer: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  handleSetDefaultTheme: () => void;
 }
 
-export default function AppToolbar({ toggleDrawer }: AppToolbarProps) {
+export default function AppToolbar({ toggleDrawer, handleSetDefaultTheme }: AppToolbarProps) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <AppBar position="static" color="inherit" elevation={1}>
         <Toolbar className={classes.toolbar}>
-          <Button className={classes.text} onClick={toggleDrawer}>
+          <Button className={classes.text} onClick={toggleDrawer} variant="contained" color="primary" size="small">
             Import theme
+          </Button>
+          <Button className={classes.text} onClick={handleSetDefaultTheme} color="primary" size="small">
+            Default theme
           </Button>
         </Toolbar>
       </AppBar>

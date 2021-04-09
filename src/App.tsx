@@ -5,6 +5,8 @@ import ThemeProvider from './context/themeContext';
 import PageNotFound from './components/pages/PageNotFound';
 import regularRoutes from './routing/regularRoutes';
 import TabletDrawerProvider from './context/tabletDrawerContext';
+import { Provider } from 'react-redux';
+import store from './store'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,15 +22,17 @@ const App: React.FC = () => {
   return (
     <Container className={classes.root} disableGutters maxWidth={false}>
       <TabletDrawerProvider>
-        <Box>
-          <Router>
-            <Switch>
-              {regularRoutes}
-              {/* <PremiumDataContainer>{PremiumRoutes}</PremiumDataContainer> */}
-              <Route component={PageNotFound} />
-            </Switch>
-          </Router>
-        </Box>
+        <Provider store={store}>
+          <Box>
+            <Router>
+              <Switch>
+                {regularRoutes}
+                {/* <PremiumDataContainer>{PremiumRoutes}</PremiumDataContainer> */}
+                <Route component={PageNotFound} />
+              </Switch>
+            </Router>
+          </Box>
+        </Provider>
       </TabletDrawerProvider>
     </Container>
   );
