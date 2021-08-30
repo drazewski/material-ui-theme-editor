@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ButtonAppBar() {
+export default function AppPage() {
   const classes = useStyles();
   const { isDrawerOpen, toggleDrawer } = useContext(TabletDrawerContext);
   const { setDialog, isDialog, dialogComponent } = useDialog();
@@ -49,10 +49,10 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Header />
-        <AppToolbar toggleDrawer={handleDrawer} handleSetDefaultTheme={handleSetDefaultTheme} />
+        <AppToolbar toggleDrawer={handleDrawer} />
       </AppBar>
       <ClippedDrawer isOpen={isDrawerOpen}>
-        <ThemeImporter toggleDrawer={handleDrawer}/>
+        <ThemeImporter toggleDrawer={handleDrawer} handleSetDefaultTheme={handleSetDefaultTheme}/>
       </ClippedDrawer>
       <MainArea toggleDrawer={handleDrawer} handleSetDefaultTheme={handleSetDefaultTheme} />
       {isDialog && dialogComponent}

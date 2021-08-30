@@ -7,16 +7,23 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     buttonGroup: {
       display: 'flex',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
     button: {
       margin: theme.spacing(2, 0, 2, 2),
+    },
+    text: {
+      textTransform: 'uppercase',
+      padding: 10,
+      fontSize: 'smaller'
     },
   })
 );
 
 interface ThemeImporterProps {
   toggleDrawer: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  handleSetDefaultTheme: () => void;
 }
 
 const ThemeKeys = [
@@ -32,17 +39,18 @@ const ThemeKeys = [
   'zIndex',
 ];
 
-const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
+const ThemeImporter = ({toggleDrawer, handleSetDefaultTheme}: ThemeImporterProps) => {
+  const Theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [theme, setTheme] = useState<Theme | null>();
+  const [theme, setTheme] = useState<Theme | ''>();
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const checkTheme = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const pasted = e.target.value;
 
     if (!pasted.trim()) {
-      setTheme(null);
+      setTheme('');
 
       return;
     }
@@ -64,7 +72,7 @@ const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
       )
         setTheme(themeObj);
     } else {
-      setTheme(null);
+      setTheme('');
     }
   };
 
@@ -73,6 +81,10 @@ const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
       dispatch(setImportedTheme(theme))
       toggleDrawer(e);
     }
+  }
+
+  const handlePasteDefaultTheme = () => {
+    setTheme(Theme);
   }
 
   return (
@@ -84,14 +96,22 @@ const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
         rowsMin={20}
         rowsMax={40}
         onChange={checkTheme}
+        value={typeof theme === 'string' ? theme : JSON.stringify(theme)}
       />
       <div className={classes.buttonGroup}>
-        <Button onClick={toggleDrawer} color='default' variant='contained' className={classes.button}>
-          Cancel
-        </Button>
-        <Button onClick={saveTheme} color='primary' variant='contained' className={classes.button} disabled={!theme}>
-          Load
-        </Button>
+        <div>
+          <Button className={classes.text} onClick={handlePasteDefaultTheme} color="primary" size="small">
+            Default theme
+          </Button>
+        </div>
+        <div>
+          <Button onClick={toggleDrawer} color='default' variant='contained' className={classes.button}>
+            Cancel
+          </Button>
+          <Button onClick={saveTheme} color='primary' variant='contained' className={classes.button} disabled={!theme}>
+            Load
+          </Button>
+        </div>
       </div>
     </>
   );

@@ -22,10 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface AppToolbarProps {
   toggleDrawer: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  handleSetDefaultTheme: () => void;
 }
 
-export default function AppToolbar({ toggleDrawer, handleSetDefaultTheme }: AppToolbarProps) {
+export default function AppToolbar({ toggleDrawer }: AppToolbarProps) {
   const classes = useStyles();
 
   return (
@@ -34,9 +33,6 @@ export default function AppToolbar({ toggleDrawer, handleSetDefaultTheme }: AppT
         <Toolbar className={classes.toolbar}>
           <Button className={classes.text} onClick={toggleDrawer} variant="contained" color="primary" size="small">
             Import theme
-          </Button>
-          <Button className={classes.text} onClick={handleSetDefaultTheme} color="primary" size="small">
-            Default theme
           </Button>
         </Toolbar>
       </AppBar>
