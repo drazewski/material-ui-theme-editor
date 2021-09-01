@@ -1,6 +1,6 @@
 import { makeStyles, Theme, createStyles, Box, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { InitialState } from '../../reducer';
 import StarImage  from '../../assets/images/star.png';
 
