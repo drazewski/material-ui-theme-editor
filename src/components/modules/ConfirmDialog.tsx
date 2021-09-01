@@ -52,7 +52,7 @@ import ButtonGroup from '../elements/ButtonGroup';
     iconDelete: {
       backgroundColor: theme.palette.error.main,
     },
-    iconReport: {
+    iconSubmit: {
       backgroundColor: '#FEAC00',
     },
   }));
@@ -64,7 +64,7 @@ import ButtonGroup from '../elements/ButtonGroup';
     description: string;
     cancelButtonTextMessage?: string;
     confirmButtonTextMessage: string;
-    type: 'delete' | 'report';
+    type: 'delete' | 'submit';
   }
   
   export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
@@ -74,7 +74,7 @@ import ButtonGroup from '../elements/ButtonGroup';
       <Grid container className={classes.root}>
         <Grid item xs={12}>
           <DialogTitle id="dialog-title" className={classes.dialogTitle}>
-             <Avatar className={props.type ==='delete'? classes.iconDelete : classes.iconReport}>
+             <Avatar className={props.type ==='delete'? classes.iconDelete : classes.iconSubmit}>
               <WarningIcon />
             </Avatar>
           </DialogTitle>

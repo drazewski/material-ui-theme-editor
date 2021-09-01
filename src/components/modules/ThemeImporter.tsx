@@ -2,6 +2,8 @@ import {Button, createStyles, makeStyles, TextareaAutosize, Theme, Typography, u
 import React, {ChangeEvent, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { setImportedTheme } from '../../actions';
+import useDialog from '../../hooks/useDialog';
+import ConfirmDialog from './ConfirmDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface ThemeImporterProps {
   toggleDrawer: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  handleSetDefaultTheme: () => void;
 }
 
 const ThemeKeys = [
@@ -39,15 +40,19 @@ const ThemeKeys = [
   'zIndex',
 ];
 
-const ThemeImporter = ({toggleDrawer, handleSetDefaultTheme}: ThemeImporterProps) => {
+const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
   const Theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
   const [theme, setTheme] = useState<Theme | ''>();
+  const { setDialog, isDialog, dialogComponent } = useDialog();
+  const [isDefault, setIsDefault] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const checkTheme = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const pasted = e.target.value;
+
+    setIsDefault(false);
 
     if (!pasted.trim()) {
       setTheme('');
@@ -78,13 +83,25 @@ const ThemeImporter = ({toggleDrawer, handleSetDefaultTheme}: ThemeImporterProps
 
   const saveTheme = (e: React.MouseEvent<HTMLElement>) => {
     if (theme) {
-      dispatch(setImportedTheme(theme))
-      toggleDrawer(e);
+      setDialog(<ConfirmDialog
+        handleOnCancelClick={() => setDialog()}
+        handleOnConfirmClick={() => {
+          setDialog();
+          dispatch(setImportedTheme(theme))
+          toggleDrawer(e);
+        }}
+        description={isDefault ? "Are you sure you want to import Material-UI default theme?" : "Are you sure you want to import new theme?"}
+        mainMessage="Import Theme"
+        type="submit"
+        confirmButtonTextMessage="Ok"
+      />)
+
     }
   }
 
   const handlePasteDefaultTheme = () => {
     setTheme(Theme);
+    setIsDefault(true);
   }
 
   return (
@@ -113,6 +130,7 @@ const ThemeImporter = ({toggleDrawer, handleSetDefaultTheme}: ThemeImporterProps
           </Button>
         </div>
       </div>
+      {isDialog && dialogComponent}
     </>
   );
 };

@@ -33,16 +33,16 @@ export default function AppPage() {
 
   const handleSetDefaultTheme = () => {
     setDialog(<ConfirmDialog
-        handleOnCancelClick={() => setDialog()}
-        handleOnConfirmClick={() => {
-          setDialog();
-          dispatch(setDefaultTheme(Theme));
-        }}
-        description="Are you sure you want to import Material-UI default theme?"
-        mainMessage="Import Theme"
-        type="report"
-        confirmButtonTextMessage="Ok"
-      />)
+      handleOnCancelClick={() => setDialog()}
+      handleOnConfirmClick={() => {
+        setDialog();
+        dispatch(setDefaultTheme(Theme));
+      }}
+      description="Are you sure you want to import Material-UI default theme?"
+      mainMessage="Import Theme"
+      type="submit"
+      confirmButtonTextMessage="Ok"
+    />)
   };
 
   return (
@@ -52,7 +52,7 @@ export default function AppPage() {
         <AppToolbar toggleDrawer={handleDrawer} />
       </AppBar>
       <ClippedDrawer isOpen={isDrawerOpen}>
-        <ThemeImporter toggleDrawer={handleDrawer} handleSetDefaultTheme={handleSetDefaultTheme}/>
+        <ThemeImporter toggleDrawer={handleDrawer}/>
       </ClippedDrawer>
       <MainArea toggleDrawer={handleDrawer} handleSetDefaultTheme={handleSetDefaultTheme} />
       {isDialog && dialogComponent}
