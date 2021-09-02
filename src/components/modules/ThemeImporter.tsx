@@ -1,8 +1,9 @@
-import {Button, createStyles, makeStyles, TextareaAutosize, Theme, Typography, useTheme} from '@material-ui/core';
-import React, {ChangeEvent, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import { Button, createStyles, makeStyles, TextareaAutosize, Theme, Typography, useTheme } from '@material-ui/core';
+import React, { ChangeEvent, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { setImportedTheme } from '../../actions';
-import useDialog from '../../hooks/useDialog';
+import { prettyPrint } from '../../shared/helpers/helpers';
+import useDialog from '../../shared/hooks/useDialog';
 import ConfirmDialog from './ConfirmDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,7 +41,7 @@ const ThemeKeys = [
   'zIndex',
 ];
 
-const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
+const ThemeImporter = ({ toggleDrawer }: ThemeImporterProps) => {
   const Theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
         (objectKeys.includes('palette') || objectKeys.includes('typography')) &&
         objectKeys.find(x => !ThemeKeys.includes(x))
       )
+
         setTheme(themeObj);
     } else {
       setTheme('');
@@ -106,14 +108,14 @@ const ThemeImporter = ({toggleDrawer}: ThemeImporterProps) => {
 
   return (
     <>
-      <Typography variant='body2'>Paste and load Material-UI theme object:</Typography>
+      <Typography variant='body2'>Paste and load Material-UI theme object or use default theme:</Typography>
       <TextareaAutosize
         aria-label='theme loader textarea'
         placeholder='Empty'
         rowsMin={20}
         rowsMax={40}
         onChange={checkTheme}
-        value={typeof theme === 'string' ? theme : JSON.stringify(theme)}
+        value={typeof theme === 'string' ? prettyPrint(theme) : prettyPrint(JSON.stringify(theme))}
       />
       <div className={classes.buttonGroup}>
         <div>

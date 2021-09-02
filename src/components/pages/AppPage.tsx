@@ -9,7 +9,7 @@ import MainArea from '../modules/MainArea';
 import { AppBar } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { setDefaultTheme } from '../../actions';
-import useDialog from '../../hooks/useDialog';
+import useDialog from '../../shared/hooks/useDialog';
 import ConfirmDialog from '../modules/ConfirmDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
